@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from rest_framework import routers
 from my_app import views
+from django.conf import settings
+from django.conf.urls.static import static
 #from django.core.urlresolvers import reverse
 
 router = routers.DefaultRouter()
@@ -24,5 +26,8 @@ router = routers.DefaultRouter()
 #router.register(r'branch_detail', views.BranchDetailView)
 
 urlpatterns = [
-        url(r'^capital/(?P<pk>[-\w]+)$', views.CountryDetailView.as_view(), name='capital-name')
-        ]
+    url(r'^capital/(?P<pk>[-\w]+)$',
+        views.CountryDetailView.as_view(),
+        name='capital-name')
+] + static(
+    settings.STATIC_URL, document_root=settings.STATIC_ROOT)
